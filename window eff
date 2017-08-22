@@ -1,0 +1,55 @@
+
+		baiye("#box",".pic",1000);
+
+		function baiye(boxID, box_liclass,voletcity) 
+		{
+			console.log(postion);
+			var wi = ($(boxID).width() - $(box_liclass).eq(0).width()) / ($(box_liclass).length - 1);
+			for(var i = 0; i < $(box_liclass).length; i++) {
+				$(box_liclass).eq(i).css({
+					"left": ($(boxID).width() / $(box_liclass).length) * i
+				});
+			}
+			// model 1
+			$(box_liclass).mouseenter(function() {
+				$(box_liclass).stop(true);
+				var index=$(this).index();
+				$(box_liclass).each(function(i){
+					if (i<=index) {
+						$(this).animate({
+						"left": wi*i
+					}, voletcity);
+					}else{
+						$(this).animate({
+						"left": wi *(i-1)+$(this).width()
+					}, voletcity);
+				}
+				})
+				
+				// model 2
+//				var Xbj = $(this).prev();
+//				for(var i = 0; i < $(this).prevAll().length; i++) {
+//					//Xbj.css({"left":(wi*i});
+//					Xbj.animate({
+//						"left": wi * ($(this).prevAll().length - 1 - i)
+//					}, voletcity);
+//					Xbj = Xbj.prev();
+//				}
+//				var obj = $(this).next();
+//				for(var i = 0; i < $(this).nextAll().length; i++) {
+//					obj.animate({
+//						"left": (wi * (i) + $(this).width() + wi * $(this).prevAll().length)
+//					}, voletcity);
+//					obj = obj.next();
+//				}
+			})
+			$(box_liclass).mouseleave(function() {
+				$(box_liclass).stop(true);
+				for(var i = 0; i < $(box_liclass).length; i++) {
+					$(box_liclass).eq(i).animate({
+						"left": ($(boxID).width()/$(box_liclass).length) * i
+					}, voletcity);
+				}
+			})
+
+		}
